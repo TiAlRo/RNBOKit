@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { createEventDispatcher } from "svelte";
+	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
 
 	const icons = {
-		play: "/play.png",
-		pause: "/pause.png",
+		play: '/play.png',
+		pause: '/pause.png'
 	};
 
-	export let isPlaying: Boolean;
+	export let isPlaying = false;
 </script>
 
-<button on:click={() => dispatch("playPause")}>
+<button on:click={() => dispatch('playPause')}>
 	<img src={isPlaying ? icons.pause : icons.play} alt="play" />
 </button>
