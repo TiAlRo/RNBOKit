@@ -6,10 +6,8 @@
 	export let inport;
 	/** @type {import ('@rnbo/js').Device} */
 	export let device;
-	/** @type {number[]} */
-	export let value = [];
 
-	$: device.scheduleEvent(new MessageEvent(TimeNow, inport.tag, value));
+	const play = () => device.scheduleEvent(new MessageEvent(TimeNow, inport.tag, ''));
 </script>
 
-<Controls />
+<Controls on:play={play} />

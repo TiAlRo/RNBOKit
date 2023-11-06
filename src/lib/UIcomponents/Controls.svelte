@@ -7,10 +7,8 @@
 		play: '/play.png',
 		pause: '/pause.png'
 	};
-
-	export let isPlaying = false;
 </script>
 
-<button on:click={() => dispatch('playPause')}>
-	<img src={isPlaying ? icons.pause : icons.play} alt="play" />
+<button on:click={() => dispatch('play')}>
+	<img src={icons.play} alt="play" />
 </button>
