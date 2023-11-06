@@ -176,7 +176,7 @@
 						<!-- list only the event inlets (skip signal ones) -->
 						<h2>message inlets</h2>
 						{#each inports as inport}
-							<RNBOInport {inport} {device} />
+							<RNBOInport tag={inport.tag} {device} />
 						{/each}
 					</div>
 				{/if}

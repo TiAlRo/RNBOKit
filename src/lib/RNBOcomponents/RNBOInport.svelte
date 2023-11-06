@@ -2,12 +2,12 @@
 	import Controls from '../UIcomponents/Controls.svelte';
 	import { TimeNow, MessageEvent } from '@rnbo/js';
 
-	/** @type {import ('@rnbo/js').MessageInfo} */
-	export let inport;
+	/** @type {string} */
+	export let tag;
 	/** @type {import ('@rnbo/js').Device} */
 	export let device;
 
-	const play = () => device.scheduleEvent(new MessageEvent(TimeNow, inport.tag, ''));
+	const play = () => device.scheduleEvent(new MessageEvent(TimeNow, tag, ''));
 </script>
 
 <Controls on:play={play} />
