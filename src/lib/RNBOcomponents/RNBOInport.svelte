@@ -7,10 +7,10 @@
 	/** @type {import ('@rnbo/js').Device} */
 	export let device;
 
-	const play = () => {
+	const sendMessage = () => {
 		const messageEvent = new MessageEvent(TimeNow, tag);
 		device.scheduleEvent(messageEvent);
 	};
 </script>
 
-<Controls on:play={play} />
+<Controls on:sendMessage={sendMessage} />

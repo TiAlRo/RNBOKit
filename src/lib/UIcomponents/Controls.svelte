@@ -9,6 +9,6 @@
 	};
 </script>
 
-<button on:click={() => dispatch('play')}>
+<button on:click={() => dispatch('sendMessage')}>
 	<img src={icons.play} alt="play" />
 </button>
