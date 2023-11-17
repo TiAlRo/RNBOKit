@@ -1,29 +1,16 @@
 <script>
-	import RangeSlider from '../UIcomponents/RangeSlider.svelte';
+	import Controls from '../UIcomponents/Controls.svelte';
 	import { TimeNow, MessageEvent } from '@rnbo/js';
 
-	/** @type {import ('@rnbo/js').MessageInfo} */
-	export let inport;
+	/** @type {string} */
+	export let tag;
 	/** @type {import ('@rnbo/js').Device} */
 	export let device;
-	/** @type {number[]} */
-	export let value = [];
-	/** @type {number} */
-	export let min = 0;
-	/** @type {number} */
-	export let max = 1;
 
-	$: device.scheduleEvent(new MessageEvent(TimeNow, inport.tag, value));
+	const sendMessage = () => {
+		const messageEvent = new MessageEvent(TimeNow, tag);
+		device.scheduleEvent(messageEvent);
+	};
 </script>
 
-<!-- only show slider if value is controlled from within the component, otherwise only use the component to change the value -->
-{#if value.length < 2}
-	<div class="RNBOcomponent RNBOsection" {...$$restProps}>
-		<div class="RNBOalign">
-			<div class="RNBOtag">{inport.tag}</div>
-			<div class="RNBOval">{value} / {max}</div>
-		</div>
-		<p>{inport.meta.slice(1, -1)}</p>
-		<RangeSlider name="range-slider" bind:value={value[0]} {min} {max} step={0.01} />
-	</div>
-{/if}
+<Controls {tag} on:sendMessage={sendMessage} />
