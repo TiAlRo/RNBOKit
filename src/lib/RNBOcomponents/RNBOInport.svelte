@@ -13,4 +13,4 @@
 	};
 </script>
 
-<Controls on:sendMessage={sendMessage} />
+<Controls {tag} on:sendMessage={sendMessage} />

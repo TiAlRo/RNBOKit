@@ -1,14 +1,12 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
+	/** @type {string} */
+	export let tag;
+	
 	const dispatch = createEventDispatcher();
-
-	const icons = {
-		play: '/play.png',
-		pause: '/pause.png'
-	};
 </script>
 
 <button on:click={() => dispatch('sendMessage')}>
-	<img src={icons.play} alt="play" />
+	<img src="/{tag}.png" alt="play" />
 </button>
