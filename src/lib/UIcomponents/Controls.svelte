@@ -3,10 +3,10 @@
 
 	/** @type {string} */
 	export let tag;
-	
+
 	const dispatch = createEventDispatcher();
 </script>
 
 <button on:click={() => dispatch('sendMessage')}>
-	<img src="/{tag}.png" alt="play" />
+	<img src="/{tag}.png" alt={tag} />
 </button>
