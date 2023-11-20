@@ -6,7 +6,7 @@
 		duration: (d) => Math.sqrt(d * 200)
 	});
 
-	import FileDropzone from '../UIcomponents/FileDropzone.svelte';
+	import FileDropZone from '../UIcomponents/FileDropZone.svelte';
 
 	/** @type {AudioContext} */
 	export let context;
@@ -75,7 +75,7 @@
 
 <div class="RNBOsubcomponent" {...$$restProps}>
 	{#if files.length === 0}
-		<FileDropzone name="audio files" on:change={loadFiles} multiple accept="audio/*" />
+		<FileDropZone name="audio files" on:change={loadFiles} multiple accept="audio/*" />
 	{:else}
 		{#each files as file, i (file)}
 			<div

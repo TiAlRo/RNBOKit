@@ -14,7 +14,7 @@ export { default as MicIn } from './RNBOcomponents/MicIn.svelte';
 export { default as AudioDropIn } from './RNBOcomponents/AudioDropIn.svelte';
 
 export { default as FileDropZone } from './UIcomponents/FileDropZone.svelte';
-export { default as Progressbar } from './UIcomponents/Progressbar.svelte';
+export { default as ProgressBar } from './UIcomponents/ProgressBar.svelte';
 export { default as RadioGroup } from './UIcomponents/RadioGroup.svelte';
 export { default as RadioItem } from './UIcomponents/RadioItem.svelte';
 export { default as RangeSlider } from './UIcomponents/RangeSlider.svelte';
