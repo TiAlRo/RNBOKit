@@ -1,4 +1,4 @@
-<img width="493" alt="Screenshot 2023-06-26 at 22 35 49" src="https://github.com/SanderNotenbaert/RNBOKit/assets/34664737/a8394d39-6c23-49c4-bd6b-a977f5bd0cff">
+<img width="493" alt="Screenshot 2023-11-24 at 15 43 41" src="static/sreenshot.jpeg">
 
 # RNBOKit
 
