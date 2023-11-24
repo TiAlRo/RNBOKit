@@ -259,11 +259,3 @@ Here is what it could look like if you'd recreate the RNBO component's default s
 	</div>
 </RNBO>
 ```
-
-## TODO
-
-- [x] add inlets & outlets in default RNBO component
-- [x] add handling of midi in & out in default RNBO component
-- [x] create reusable UI components (external midi in & out, audio dropzone)
-- [x] get rid of Skeleton/tailwind dependencies?
-- [ ] add external midi out. (doesn't work due to apparent RNBO bug, waiting for tech support)
