@@ -232,7 +232,7 @@ Here is what it could look like if you'd recreate the RNBO component's default s
 				<!-- list only the event inlets (skip signal ones) -->
 				<h2>message inlets</h2>
 				{#each inports as inport}
-					<RNBOInport {inport} {device} />
+					<RNBOInport {inport.tag} {device} />
 				{/each}
 			</div>
 		{/if}
