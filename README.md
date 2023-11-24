@@ -36,7 +36,7 @@ It will create a folder which contains a .JSON file. You can export it directly 
 
 <img width="567" alt="Screenshot 2023-05-26 at 17 22 03" src="https://github.com/SanderNotenbaert/RNBOKit/assets/34664737/534588d2-7bfe-4fa3-b686-3a2d5dca54d4">
 
-By default the <RNBO> component will look for a `patch.export.json` file in a `src/RNBO/` folder.
+By default the <RNBO> component will look for a `patch.export.json` file in a `src/RNBO/` folder. For each inport, you have to provide a PNG file with the same name as the inport in the `static` directory (e.g. the file `in2.png` for an inport with the tag `in2`).
 Next you will need to import the RNBO component into your `+page.svelte` file.
 
 ```svelte
