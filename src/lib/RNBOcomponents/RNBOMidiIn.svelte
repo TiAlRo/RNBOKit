@@ -1,5 +1,6 @@
 <script>
-	import { MIDIEvent, TimeNow } from '@rnbo/js';
+	import rnbo from '@rnbo/js';
+	const { MIDIEvent, TimeNow } = rnbo;
 	import XyMidiIn from './XYMidiIn.svelte';
 	import ExtMidiIn from './ExtMidiIn.svelte';
 	import RadioGroup from '$lib/UIcomponents/RadioGroup.svelte';

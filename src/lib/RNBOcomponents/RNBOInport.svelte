@@ -1,6 +1,7 @@
 <script>
 	import Controls from '../UIcomponents/Controls.svelte';
-	import { TimeNow, MessageEvent } from '@rnbo/js';
+	import rnbo from '@rnbo/js';
+	const { TimeNow, MessageEvent } = rnbo;
 
 	/** @type {string} */
 	export let tag;

@@ -1,7 +1,8 @@
 <script>
 	import './RNBO.css';
 	import { onMount } from 'svelte';
-	import { BaseDevice, createDevice } from '@rnbo/js';
+	import rnbo from '@rnbo/js';
+	const { BaseDevice, createDevice } = rnbo;
 	import RNBOParam from './RNBOcomponents/RNBOParam.svelte';
 	import RNBOOutport from './RNBOcomponents/RNBOOutport.svelte';
 	import RNBOInport from './RNBOcomponents/RNBOInport.svelte';
