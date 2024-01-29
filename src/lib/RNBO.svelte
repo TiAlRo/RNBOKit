@@ -24,7 +24,7 @@
 	const loadContext = () => {
 		// @ts-ignore
 		let WAContext = window.AudioContext || window.webkitAudioContext;
-		context = new WAContext();
+		context = new WAContext({ sampleRate: 44100 });
 	};
 
 	// Create device
