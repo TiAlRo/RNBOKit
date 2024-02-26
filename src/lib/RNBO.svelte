@@ -11,12 +11,6 @@
 	// import RNBOMidiOut from './RNBOcomponents/RNBOMidiOut.svelte';
 	import path from 'path-browserify';
 
-	/** @type {string} */
-	export let dir = '/src/RNBO';
-	/** @type {string} */
-	export let patchName = 'patch.export';
-	const dependencies = path.format({ dir, base: 'dependencies' });
-
 	// Create AudioContext
 	/** @type {AudioContext|undefined} */
 	let context = undefined;
@@ -68,18 +62,17 @@
 	// set up device
 	const deviceSetup = async () => {
 		//import the patcher json dynamically!
-		const patchPath = path.format({ dir, base: patchName });
-		patcher = await import(/* @vite-ignore */ patchPath);
+		patcher = await import('/src/RNBO/patch.export.json');
 
 		if (patcher && context) {
 			//import the dependency json dynamically!
-			const dependencyFile = (await import(/* @vite-ignore */ dependencies)).default;
+			const dependencyFile = (await import('/src/RNBO/dependencies.json')).default;
 
 			dependencyFileCorrected = dependencyFile.map((dependency) => {
 				if (BaseDevice.bufferDescriptionHasRemoteURL(dependency)) {
 					return dependency;
 				}
-				const newFile = path.join(dir, dependency.file);
+				const newFile = path.join('/src/RNBO/', dependency.file);
 				return Object.assign({}, dependency, { file: newFile });
 			});
 
@@ -135,8 +128,6 @@
 		<slot
 			{patcher}
 			{device}
-			{dir}
-			{patchName}
 			{dependencyFileCorrected}
 			{parameters}
 			{context}
@@ -149,7 +140,7 @@
 		>
 			<div class="RNBOsection">
 				<!-- use the json file name as header -->
-				<h1>{patchName}</h1>
+				<h1>patch.export.json</h1>
 
 				<!-- create input for each MIDI input port -->
 				{#if midiInports.length > 0}
