@@ -49,30 +49,16 @@ Next you will need to import the RNBO component into your `+page.svelte` file.
 
 This is enough to start running the RNBO patch in your Sveltekit project. It will generate all the parameters and visualise any number messages from the outlet (0.-1.)
 
-## opening different patches
-
-to open different RNBO patch exports, export them to different directories, and use the built-in `dir` prop in the RNBO components to open them:
-
-```svelte
-<script>
-	import { RNBO } from 'rnbokit';
-</script>
-
-<RNBO dir="/src/RNBO/Patch1" />
-<RNBO dir="/src/RNBO/Patch2" />
-```
-
 ## extending with custom slots
 
-You can customize how parameters or messages are handled by adding your own components in the RNBO tag. You can pass information from the RNBO component down to the child components by using Svelte's `let:` syntax. Some available objects are the `patcher` file (IPatcher), `dependencyFileCorrected` (ExternalDataInfo[]), `context` (AudioContext), `device` (Device), or `parameters` (Parameter[]). You can find more information on these in the [RNBO JS documentation](https://rnbo.cycling74.com/js).
+You can customize how parameters or messages are handled by adding your own components in the RNBO tag. You can pass information from the RNBO component down to the child components by using Svelte's `let:` syntax. Some available objects are `dependencyFileCorrected` (ExternalDataInfo[]), `context` (AudioContext), `device` (Device), or `parameters` (Parameter[]). You can find more information on these in the [RNBO JS documentation](https://rnbo.cycling74.com/js).
 
 ```svelte
 <script>
 	import { RNBO, RNBOParam } from 'rnbokit';
 </script>
 
-<RNBO let:parameters let:patcher>
-	<p>used Max version: {patcher.desc.meta.maxversion}</p>
+<RNBO let:parameters>
 	{#each parameters as parameter}
 		<!-- create custom components -->
 		<p>{parameter.name}</p>
@@ -90,10 +76,7 @@ Here is the full list of all available variables:
 	import { RNBO } from 'rnbokit';
 </script>
 
-<RNBO let:patcher <!-- type: IPatcher - represents the json exported from Max -->
-	let:device <!-- type: Device - the device object, check RNBO js documentation -->
-	let:dir <!-- type: string - the directory the patch was exported to -->
-	let:patchName <!-- type: string - the name of the patch file -->
+<RNBO let:device <!-- type: Device - the device object, check RNBO js documentation -->
 	let:dependencyFileCorrected <!-- type: ExternalDataInfo[] - represents the json with dependencies of the patch, check RNBO js documentation -->
 	let:parameters <!-- type: Parameter[] - an array containing all RNBO parameters, check RNBO js documentation -->
 	let:context <!-- type: AudioContext - the audio context, see https://developer.mozilla.org/Web/API/AudioContext -->
@@ -201,10 +184,9 @@ The default styling is done with the internal RNBO.css stylesheet. If you want t
 Here is what it could look like if you'd recreate the RNBO component's default slot, for inspiration:
 
 ```svelte
-<RNBO let:patchName let:device let:midiInports let:inlets let:inports let:parameters let:outports>
+<RNBO let:device let:midiInports let:inlets let:inports let:parameters let:outports>
 	<div class="RNBOsection">
-		<!-- use the json file name as header -->
-		<h1>{patchName}</h1>
+		<h1>patch.export.json</h1>
 
 		<!-- create input for each MIDI input port -->
 		{#if midiInports.length > 0}
