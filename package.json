@@ -1,6 +1,6 @@
 {
 	"name": "@tialro/rnbokit",
-	"version": "3.0.1",
+	"version": "3.0.2",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -29,7 +29,7 @@
 		"svelte": "^4.0.0"
 	},
 	"devDependencies": {
-		"@playwright/test": "^1.41.2",
+		"@playwright/test": "^1.42.1",
 		"@sveltejs/adapter-auto": "^3.1.1",
 		"@sveltejs/kit": "^2.5.2",
 		"@sveltejs/package": "^2.2.7",
@@ -38,10 +38,10 @@
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-svelte": "^2.35.1",
 		"prettier": "^3.2.5",
-		"prettier-plugin-svelte": "^3.2.1",
+		"prettier-plugin-svelte": "^3.2.2",
 		"publint": "^0.2.7",
 		"svelte": "^4.2.12",
-		"svelte-check": "^3.6.4",
+		"svelte-check": "^3.6.6",
 		"tslib": "^2.6.2",
 		"typescript": "^5.3.3",
 		"vite": "^5.1.4",
@@ -51,7 +51,7 @@
 	"types": "./dist/index.d.ts",
 	"type": "module",
 	"dependencies": {
-		"@rnbo/js": "^1.2.4",
+		"@rnbo/js": "^1.2.5",
 		"@types/path-browserify": "^1.0.2",
 		"path-browserify": "^1.0.1"
 	},
