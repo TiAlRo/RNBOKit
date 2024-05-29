@@ -62,11 +62,11 @@
 	// set up device
 	const deviceSetup = async () => {
 		//import the patcher json dynamically!
-		patcher = await import('/src/RNBO/patch.export.json');
+		patcher = await import('../../../../src/RNBO/patch.export.json');
 
 		if (patcher && context) {
 			//import the dependency json dynamically!
-			const dependencyFile = (await import('/src/RNBO/dependencies.json')).default;
+			const dependencyFile = (await import('../../../../src/RNBO/dependencies.json')).default;
 
 			dependencyFileCorrected = dependencyFile.map((dependency) => {
 				if (BaseDevice.bufferDescriptionHasRemoteURL(dependency)) {
