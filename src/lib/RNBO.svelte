@@ -82,9 +82,6 @@
 			if (dependencyFileCorrected && dependencyFileCorrected.length) {
 				device.loadDataBufferDependencies(dependencyFileCorrected);
 			}
-			if (patcher.presets && patcher.presets[0]) {
-				device.setPreset(patcher.presets[0].preset);
-			}
 			device.node.connect(context.destination);
 
 			parameters = device.parameters;
