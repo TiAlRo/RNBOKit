@@ -6,19 +6,29 @@
 	import RadioGroup from '$lib/UIcomponents/RadioGroup.svelte';
 	import RadioItem from '$lib/UIcomponents/RadioItem.svelte';
 
-	/** type {number} - the MIDI port index*/
-	export let port = 0;
-	/** @type {import ('@rnbo/js').Device} */
-	export let device;
-	/** @type {import('@rnbo/js').MIDIData|undefined} */
-	export let midiMessage = undefined;
-	/** @type {number|undefined} */
-	export let midiChannel = 0;
-
 	/** @type {{default: 'default', xy: 'xy', external: 'external'}} */
 	let modes = { default: 'default', xy: 'xy', external: 'external' };
-	/** @type {'default'|'xy'|'external'} */
-	export let mode = modes.default;
+
+	/**
+	 * @typedef {Object} Props
+	 * @property {number} [port] - type {number} - the MIDI port index
+	 * @property {import ('@rnbo/js').Device} device
+	 * @property {import('@rnbo/js').MIDIData|undefined} [midiMessage]
+	 * @property {number|undefined} [midiChannel]
+	 * @property {'default'|'xy'|'external'} [mode]
+	 * @property {import('svelte').Snippet<[any]>} [children]
+	 */
+
+	/** @type {Props & { [key: string]: any }} */
+	let {
+		port = 0,
+		device,
+		midiMessage = $bindable(undefined),
+		midiChannel = 0,
+		mode = $bindable(modes.default),
+		children,
+		...rest
+	} = $props();
 
 	//set a defaultMode so the radio group only shows if no mode has been specified
 	/** @type {'default'|'xy'|'external'} */
@@ -26,16 +36,16 @@
 	//make sure the default mode is mic in the radio group
 	if (mode == modes.default) mode = modes.xy;
 
-	$: {
+	$effect(() => {
 		if (midiMessage && midiMessage.length > 0) {
 			console.log('from MidiIn', midiMessage);
 			device.scheduleEvent(new MIDIEvent(TimeNow, port, midiMessage));
 		}
-	}
+	});
 </script>
 
-<div class="RNBOcomponent RNBOsection" {...$$restProps}>
-	<slot {midiChannel}>
+<div class="RNBOcomponent RNBOsection" {...rest}>
+	{#if children}{@render children({ midiChannel })}{:else}
 		<div class="RNBOtag">in {port}</div>
 		{#if defaultMode === modes.default}
 			<RadioGroup>
@@ -49,5 +59,5 @@
 		{:else}
 			<XyMidiIn bind:midiMessage {midiChannel} />
 		{/if}
-	</slot>
+	{/if}
 </div>

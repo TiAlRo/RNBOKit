@@ -1,11 +1,17 @@
 <script>
-	/** @type {number} - the MIDI channel (0-15)*/
-	export let midiChannel = 0;
+	
 	/** @type {Uint8Array} */
-	let currentNote = new Uint8Array([0, 0]);
-	/** @type {Uint8Array} */
-	export let midiMessage;
-	let isOn = false;
+	let currentNote = $state(new Uint8Array([0, 0]));
+	
+	/**
+	 * @typedef {Object} Props
+	 * @property {number} [midiChannel]
+	 * @property {Uint8Array} midiMessage
+	 */
+
+	/** @type {Props & { [key: string]: any }} */
+	let { midiChannel = 0, midiMessage = $bindable(), ...rest } = $props();
+	let isOn = $state(false);
 
 	/** @param {MouseEvent} e */
 	function NoteOn(e) {
@@ -34,16 +40,16 @@
 	}
 </script>
 
-<svelte:window on:mouseup={NoteOff} />
-<div class="RNBOsubcomponent" {...$$restProps}>
+<svelte:window onmouseup={NoteOff} />
+<div class="RNBOsubcomponent" {...rest}>
 	<p class="RNBOtext">click the pad to generate MIDI notes</p>
 	<!-- TODO: fix accessibility roles, quick hack for now -->
 	<div
 		class="xy"
 		id="group"
-		on:mousedown={NoteOn}
-		on:mousemove={NoteUpdate}
-		on:keydown={NoteOn}
+		onmousedown={NoteOn}
+		onmousemove={NoteUpdate}
+		onkeydown={NoteOn}
 		role="none"
 	>
 		<p class="xyval" class:text-gray-500={!isOn}>

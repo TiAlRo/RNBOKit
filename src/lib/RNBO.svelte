@@ -13,7 +13,7 @@
 
 	// Create AudioContext
 	/** @type {AudioContext|undefined} */
-	let context = undefined;
+	let context = $state(undefined);
 
 	const loadContext = () => {
 		// @ts-ignore
@@ -22,21 +22,12 @@
 	};
 
 	// Create device
-	/** @type {import ('@rnbo/js').Device|undefined} */
-	export let device = undefined;
-	$: device;
 
 	/** @type {import ('@rnbo/js').IPatcher|undefined} */
-	let patcher = undefined;
+	let patcher = $state(undefined);
 
 	/** @type {import ('@rnbo/js').ExternalDataInfo[]|undefined} */
-	let dependencyFileCorrected = undefined;
-
-	/** @type {import ('@rnbo/js').Parameter[]} */
-	export let parameters = [];
-
-	/** @type {import ('@rnbo/js').MessageInfo[]} */
-	export let inports = [];
+	let dependencyFileCorrected = $state(undefined);
 
 	/** @typedef {object} signalPort
 	 * @property {number} index - the port index
@@ -44,20 +35,32 @@
 	 * @property {'signal'} type - the type
 	 * @property {string} meta - the meta
 	 */
-	/** @type {signalPort[]} */
-	export let inlets = [];
 
-	/** @type {Array<Number>} */
-	export let midiOutports = [];
+	/**
+	 * @typedef {Object} Props
+	 * @property {import ('@rnbo/js').Device|undefined} [device]
+	 * @property {import ('@rnbo/js').Parameter[]} [parameters]
+	 * @property {import ('@rnbo/js').MessageInfo[]} [inports]
+	 * @property {signalPort[]} [inlets]
+	 * @property {Array<Number>} [midiOutports]
+	 * @property {import ('@rnbo/js').MessageInfo[]} [outports]
+	 * @property {signalPort[]} [outlets]
+	 * @property {Array<Number>} [midiInports]
+	 * @property {import('svelte').Snippet<[any]>} [children]
+	 */
 
-	/** @type {import ('@rnbo/js').MessageInfo[]} */
-	export let outports = [];
-
-	/** @type {signalPort[]} */
-	export let outlets = [];
-
-	/** @type {Array<Number>} */
-	export let midiInports = [];
+	/** @type {Props} */
+	let {
+		device = $bindable(undefined),
+		parameters = $bindable([]),
+		inports = $bindable([]),
+		inlets = $bindable([]),
+		midiOutports = $bindable([]),
+		outports = $bindable([]),
+		outlets = $bindable([]),
+		midiInports = $bindable([]),
+		children
+	} = $props();
 
 	// set up device
 	const deviceSetup = async () => {
@@ -117,24 +120,24 @@
 <!-- html -->
 {#if patcher && device && context}
 	<div
-		on:click={() => context?.resume()}
-		on:keydown={() => context?.resume()}
+		onclick={() => context?.resume()}
+		onkeydown={() => context?.resume()}
 		role="button"
 		tabindex="-2"
 	>
-		<slot
-			{patcher}
-			{device}
-			{dependencyFileCorrected}
-			{parameters}
-			{context}
-			{inports}
-			{inlets}
-			{outports}
-			{outlets}
-			{midiInports}
-			{midiOutports}
-		>
+		{#if children}{@render children({
+				patcher,
+				device,
+				dependencyFileCorrected,
+				parameters,
+				context,
+				inports,
+				inlets,
+				outports,
+				outlets,
+				midiInports,
+				midiOutports
+			})}{:else}
 			<div class="RNBOsection">
 				<!-- use the json file name as header -->
 				<h1>patch.export.json</h1>
@@ -198,23 +201,23 @@
 					{/each}
 				</div> -->
 			</div>
-		</slot>
+		{/if}
 	</div>
 {:else}
 	<!-- show a placeholder skeleton when loading -->
 	<div class="RNBOsection">
-		<div class="RNBOplaceholder" />
+		<div class="RNBOplaceholder"></div>
 		<div class="RNBOsection">
-			<div class="RNBOplaceholder" />
+			<div class="RNBOplaceholder"></div>
 			<div class="RNBOsection">
-				<div class="RNBOplaceholder" />
+				<div class="RNBOplaceholder"></div>
 			</div>
 		</div>
 		<div class="RNBOsection">
-			<div class="RNBOplaceholder" />
+			<div class="RNBOplaceholder"></div>
 		</div>
 		<div class="RNBOsection">
-			<div class="RNBOplaceholder" />
+			<div class="RNBOplaceholder"></div>
 		</div>
 	</div>
 {/if}

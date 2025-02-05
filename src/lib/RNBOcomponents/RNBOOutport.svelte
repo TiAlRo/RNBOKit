@@ -1,28 +1,30 @@
 <script>
 	import ProgressBar from '$lib/UIcomponents/ProgressBar.svelte';
-	/** @type {import ('@rnbo/js').MessageInfo} */
-	export let outport;
-
-	/** @type {import ('@rnbo/js').Device} */
-	export let device;
 
 	/** @type {import ('@rnbo/js').MessagePayload } */
-	let value = 0;
+	let value = $state(0);
 
-	/** @type {number} */
-	export let min = 0;
+	/**
+	 * @typedef {Object} Props
+	 * @property {import ('@rnbo/js').MessageInfo} outport
+	 * @property {import ('@rnbo/js').Device} device
+	 * @property {number} [min]
+	 * @property {number} [max]
+	 */
 
-	/** @type {number} */
-	export let max = 1;
+	/** @type {Props & { [key: string]: any }} */
+	let { outport, device, min = 0, max = 1, ...rest } = $props();
 
-	$: device.messageEvent.subscribe((ev) => {
-		if (ev.tag == outport.tag) {
-			value = ev.payload;
-		}
+	$effect(() => {
+		device.messageEvent.subscribe((ev) => {
+			if (ev.tag == outport.tag) {
+				value = ev.payload;
+			}
+		});
 	});
 </script>
 
-<div class="RNBOcomponent RNBOsection" {...$$restProps}>
+<div class="RNBOcomponent RNBOsection" {...rest}>
 	<div class="RNBOalign">
 		<div class="RNBOtag">{outport.tag}</div>
 		<!-- some hack to make the value max 2 decimal floats: -->

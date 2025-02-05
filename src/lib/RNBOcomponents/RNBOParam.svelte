@@ -2,19 +2,22 @@
 	import RangeSlider from '$lib/UIcomponents/RangeSlider.svelte';
 	import RadioGroup from '$lib/UIcomponents/RadioGroup.svelte';
 	import RadioItem from '$lib/UIcomponents/RadioItem.svelte';
-	/** @type {import ('@rnbo/js').Parameter} */
-	export let parameter;
-	/** @type {number} */
-	let value = parameter.value;
-	$: parameter.value = value;
+
+	/**
+	 * @typedef {Object} Props
+	 * @property {import ('@rnbo/js').Parameter} parameter
+	 */
+
+	/** @type {Props & { [key: string]: any }} */
+	let { parameter = $bindable(), ...rest } = $props();
 </script>
 
-<div class="RNBOcomponent RNBOsection" {...$$restProps}>
+<div class="RNBOcomponent RNBOsection" {...rest}>
 	{#if parameter.enumValues}
 		<div class="RNBOtag">{parameter.name}</div>
 		<RadioGroup>
 			{#each parameter.enumValues as enumValue, i}
-				<RadioItem bind:group={value} name="justify" value={i}>{enumValue}</RadioItem>
+				<RadioItem bind:group={parameter.value} name="justify" value={i}>{enumValue}</RadioItem>
 			{/each}
 		</RadioGroup>
 	{:else}
@@ -25,7 +28,7 @@
 		</div>
 		<RangeSlider
 			name="range-slider"
-			bind:value
+			bind:value={parameter.value}
 			min={parameter.min}
 			max={parameter.max}
 			step={0.01}

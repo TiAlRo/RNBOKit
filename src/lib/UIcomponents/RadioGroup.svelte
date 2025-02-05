@@ -1,5 +1,12 @@
 <script>
-	export let labelledby = '';
+	/**
+	 * @typedef {Object} Props
+	 * @property {string} [labelledby]
+	 * @property {import('svelte').Snippet} [children]
+	 */
+
+	/** @type {Props} */
+	let { labelledby = '', children } = $props();
 </script>
 
 <div
@@ -8,7 +15,7 @@
 	role="radiogroup"
 	aria-labelledby={labelledby}
 >
-	<slot />
+	{@render children?.()}
 </div>
 
 <style>

@@ -1,10 +1,26 @@
 <script>
-	export let name;
-	export let value = 0;
-	export let min = 0;
-	export let max = 100;
-	export let step = 0.01;
-	export let label = '';
+	/**
+	 * @typedef {Object} Props
+	 * @property {any} name
+	 * @property {number} [value]
+	 * @property {number} [min]
+	 * @property {number} [max]
+	 * @property {number} [step]
+	 * @property {string} [label]
+	 */
+
+	/** @type {Props} */
+	let {
+		name,
+		value = $bindable(0),
+		min = 0,
+		max = 100,
+		step = 0.01,
+		label = '',
+		onclick,
+		onchange,
+		onblur
+	} = $props();
 </script>
 
 <input
@@ -16,7 +32,7 @@
 	{max}
 	{step}
 	bind:value
-	on:click
-	on:change
-	on:blur
+	{onclick}
+	{onchange}
+	{onblur}
 />

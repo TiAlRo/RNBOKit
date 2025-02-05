@@ -8,15 +8,21 @@
 
 	import FileDropZone from '../UIcomponents/FileDropZone.svelte';
 
-	/** @type {AudioContext} */
-	export let context;
-	/** @type {AudioNode|undefined} */
-	export let audio;
+	
+	
+	/**
+	 * @typedef {Object} Props
+	 * @property {AudioContext} context
+	 * @property {AudioNode|undefined} audio
+	 */
+
+	/** @type {Props & { [key: string]: any }} */
+	let { context, audio = $bindable(), ...rest } = $props();
 
 	/** @type {Array<File>} */
-	let files = [];
+	let files = $state([]);
 	/** @type {HTMLMediaElement[]} */
-	let audioElements = [];
+	let audioElements = $state([]);
 
 	/** @type {HTMLMediaElement|undefined} */
 	let current;
@@ -73,7 +79,7 @@
 	}
 </script>
 
-<div class="RNBOsubcomponent" {...$$restProps}>
+<div class="RNBOsubcomponent" {...rest}>
 	{#if files.length === 0}
 		<FileDropZone name="audio files" on:change={loadFiles} multiple accept="audio/*" />
 	{:else}
@@ -88,14 +94,14 @@
 				<audio
 					src={URL.createObjectURL(file)}
 					bind:this={audioElements[i]}
-					on:play={onPlay}
+					onplay={onPlay}
 					controls
-				/>
+				></audio>
 				<button
 					type="button"
 					class="RNBObtn RNBOclose"
-					on:click={() => removeFile(i)}
-					on:keydown={() => removeFile(i)}
+					onclick={() => removeFile(i)}
+					onkeydown={() => removeFile(i)}
 				>
 					x
 				</button>

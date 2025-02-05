@@ -1,12 +1,25 @@
 <script>
 	import { MIDIEvent, TimeNow } from '@rnbo/js';
 	// import ExtMidiOut from './ExtMidiOut.svelte';
-	/** type {number} - the MIDI port index*/
-	export let port = 0;
-	/** @type {import ('@rnbo/js').Device} */
-	export let device;
-	/** @type {import('@rnbo/js').MIDIData|undefined} */
-	export let midiMessage = new MIDIEvent(TimeNow, 0, [144, 100, 100]);
+	
+	
+	
+	/**
+	 * @typedef {Object} Props
+	 * @property {number} [port] - type {number} - the MIDI port index
+	 * @property {import ('@rnbo/js').Device} device
+	 * @property {import('@rnbo/js').MIDIData|undefined} [midiMessage]
+	 * @property {import('svelte').Snippet<[any]>} [children]
+	 */
+
+	/** @type {Props & { [key: string]: any }} */
+	let {
+		port = 0,
+		device,
+		midiMessage = new MIDIEvent(TimeNow, 0, [144, 100, 100]),
+		children,
+		...rest
+	} = $props();
 	// /** @type {number|undefined} */
 	// export let midiChannel = 0;
 
@@ -16,10 +29,10 @@
 	});
 </script>
 
-<div class="RNBOcomponent RNBOsection" {...$$restProps}>
-	<slot {port}>
+<div class="RNBOcomponent RNBOsection" {...rest}>
+	{#if children}{@render children({ port, })}{:else}
 		<div class="RNBOtag">in {port}</div>
 
 		<!-- <ExtMidiOut bind:midiMessage /> -->
-	</slot>
+	{/if}
 </div>

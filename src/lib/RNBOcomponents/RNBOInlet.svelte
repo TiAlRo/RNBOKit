@@ -4,9 +4,6 @@
 	import AudioDropIn from './AudioDropIn.svelte';
 	import MicIn from './MicIn.svelte';
 
-	/** @type {import ('@rnbo/js').Device} */
-	export let device;
-
 	let context = device.context;
 
 	/** @typedef {object} inlet
@@ -15,31 +12,44 @@
 	 * @property {'signal'} type - the type
 	 * @property {string} meta - the meta
 	 */
-	/** @type {inlet} */
-	export let inlet = { index: 1, tag: 'in1', type: 'signal', meta: 'something' };
 
 	/** @type {AudioNode} */
-	let audio;
+	let audio = $state();
 
 	/** @type {{default: 'default', mic: 'mic', dropIn: 'dropIn'}} */
 	let modes = { default: 'default', mic: 'mic', dropIn: 'dropIn' };
-	/** @type {'default'|'mic'|'dropIn'} */
-	export let mode = modes.default;
+
+	/**
+	 * @typedef {Object} Props
+	 * @property {import ('@rnbo/js').Device} device
+	 * @property {inlet} [inlet]
+	 * @property {'default'|'mic'|'dropIn'} [mode]
+	 * @property {import('svelte').Snippet<[any]>} [children]
+	 */
+
+	/** @type {Props & { [key: string]: any }} */
+	let {
+		device,
+		inlet = { index: 1, tag: 'in1', type: 'signal', meta: 'something' },
+		mode = $bindable(modes.default),
+		children,
+		...rest
+	} = $props();
 	//set a defaultMode so the radio group only shows if no mode has been specified
 	/** @type {'default'|'mic'|'dropIn'} */
 	let defaultMode = mode;
 	//make sure the default mode is mic in the radio group
 	if (mode == modes.default) mode = modes.mic;
 
-	$: {
+	$effect(() => {
 		if (audio) {
 			audio.connect(device.node, inlet.index - 1);
 		}
-	}
+	});
 </script>
 
-<div class="RNBOcomponent RNBOsection" {...$$restProps}>
-	<slot {context} {audio}>
+<div class="RNBOcomponent RNBOsection" {...rest}>
+	{#if children}{@render children({ context, audio })}{:else}
 		<div class="RNBOtag">{inlet.tag}</div>
 		{#if defaultMode === modes.default}
 			<RadioGroup>
@@ -52,5 +62,5 @@
 		{:else}
 			<MicIn bind:audio {context} />
 		{/if}
-	</slot>
+	{/if}
 </div>

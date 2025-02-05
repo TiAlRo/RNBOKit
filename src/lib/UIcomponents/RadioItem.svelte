@@ -1,17 +1,37 @@
 <script>
-	export let group;
-	export let name;
-	export let value;
-	export let title = '';
-	export let label = '';
-	let elemInput;
+	/**
+	 * @typedef {Object} Props
+	 * @property {any} group
+	 * @property {any} name
+	 * @property {any} value
+	 * @property {string} [title]
+	 * @property {string} [label]
+	 * @property {import('svelte').Snippet} [children]
+	 */
+
+	/** @type {Props} */
+	let {
+		group = $bindable(),
+		name,
+		value,
+		title = '',
+		label = '',
+		onkeydown,
+		onkeyup,
+		onkeypress,
+		onclick,
+		onchange,
+		children
+	} = $props();
+	let elemInput = $state();
 	function onKeyDown(event) {
 		if (['Enter', 'Space'].includes(event.code)) {
 			event.preventDefault();
 			elemInput.click();
 		}
+		onkeydown();
 	}
-	$: checked = value === group;
+	let checked = $derived(value === group);
 </script>
 
 <label>
@@ -24,10 +44,9 @@
 		aria-label={label}
 		tabindex="0"
 		{title}
-		on:keydown={onKeyDown}
-		on:keydown
-		on:keyup
-		on:keypress
+		onkeydown={onKeyDown}
+		{onkeyup}
+		{onkeypress}
 	>
 		<!-- NOTE: Don't use `hidden` as it prevents `required` from operating -->
 		<div class="RNBOradio-input">
@@ -38,12 +57,12 @@
 				{name}
 				{value}
 				tabindex="-1"
-				on:click
-				on:change
+				{onclick}
+				{onchange}
 				id="test"
 			/>
 		</div>
-		<slot />
+		{@render children?.()}
 	</div>
 </label>
 

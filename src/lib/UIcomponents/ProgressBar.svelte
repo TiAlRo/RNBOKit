@@ -1,9 +1,20 @@
 <script>
-	export let value = void 0;
-	export let min = 0;
-	export let max = 100;
-	export let labelledby = '';
-	$: fillPercent = value ? (100 * (value - min)) / (max - min) : 0;
+	/**
+	 * @typedef {Object} Props
+	 * @property {any} [value]
+	 * @property {number} [min]
+	 * @property {number} [max]
+	 * @property {string} [labelledby]
+	 */
+
+	/** @type {Props} */
+	let {
+		value = void 0,
+		min = 0,
+		max = 100,
+		labelledby = ''
+	} = $props();
+	let fillPercent = $derived(value ? (100 * (value - min)) / (max - min) : 0);
 </script>
 
 <!-- Track -->
@@ -17,7 +28,7 @@
 	aria-valuemax={max - min}
 >
 	<!-- Meter -->
-	<div class="RNBOprogress-bar-meter" style:width="{fillPercent}%" />
+	<div class="RNBOprogress-bar-meter" style:width="{fillPercent}%"></div>
 </div>
 
 <style>

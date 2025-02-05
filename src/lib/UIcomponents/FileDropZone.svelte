@@ -1,7 +1,22 @@
 <script>
-	export let files = void 0;
-	export let name;
-	let dragOver = false;
+	let {
+		files = $bindable(void 0),
+		name,
+		lead,
+		message,
+		meta,
+		ondragenter,
+		ondragleave,
+		onchange,
+		ondragover,
+		ondrop,
+		onclick,
+		onkeydown,
+		onkeyup,
+		onkeypress,
+		...rest
+	} = $props();
+	let dragOver = $state(false);
 </script>
 
 <div class="RNBOdropzone" data-testid="file-dropzone">
@@ -11,36 +26,36 @@
 		bind:files
 		type="file"
 		{name}
-		{...$$restProps}
+		{...rest}
 		class="RNBOdropzone-input"
 		class:RNBOdrag={dragOver}
-		on:dragenter={() => {
+		ondragenter={() => {
 			dragOver = true;
+			ondragenter();
 		}}
-		on:dragleave={() => {
+		ondragleave={() => {
 			dragOver = false;
+			ondragleave();
 		}}
-		on:change
-		on:dragenter
-		on:dragover
-		on:dragleave
-		on:drop
-		on:click
-		on:keydown
-		on:keyup
-		on:keypress
+		{onchange}
+		{ondragover}
+		{ondrop}
+		{onclick}
+		{onkeydown}
+		{onkeyup}
+		{onkeypress}
 	/>
 	<!-- Interface -->
 	<div class="RNBOdropzone-interface">
 		<div class="dropzone-interface-text">
 			<!-- Lead -->
-			{#if $$slots.lead}<div class="RNBOdropzone-lead"><slot name="lead" /></div>{/if}
+			{#if lead}<div class="RNBOdropzone-lead">{@render lead?.()}</div>{/if}
 			<!-- Message -->
 			<div class="RNBOdropzone-message">
-				<slot name="message"><strong>Upload files</strong> or drag and drop</slot>
+				{#if message}{@render message()}{:else}<strong>Upload files</strong> or drag and drop{/if}
 			</div>
 			<!-- Meta Text -->
-			{#if $$slots.meta}<small class="RNBOdropzone-meta"><slot name="meta" /></small>{/if}
+			{#if meta}<small class="RNBOdropzone-meta">{@render meta?.()}</small>{/if}
 		</div>
 	</div>
 </div>

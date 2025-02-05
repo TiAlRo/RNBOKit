@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	interface Props {
+		tag: string;
+		sendMessage: () => void;
+	}
 
-	export let tag: string;
-
-	const dispatch = createEventDispatcher();
+	let { tag, sendMessage }: Props = $props();
 </script>
 
-<button on:click={() => dispatch('sendMessage')}>
+<button onclick={sendMessage}>
 	<img src="/{tag}.png" alt={tag} />
 </button>

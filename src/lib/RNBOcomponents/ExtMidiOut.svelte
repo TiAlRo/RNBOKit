@@ -2,18 +2,24 @@
 	import RadioGroup from '$lib/UIcomponents/RadioGroup.svelte';
 	import RadioItem from '$lib/UIcomponents/RadioItem.svelte';
 	/** @type {MIDIAccess|null|false} */
-	let midi = null; // global MIDIAccess object
+	let midi = $state(null); // global MIDIAccess object
 	/**@type {MIDIInputMap|null} */
-	let outports = null; // available MIDI outports
+	let outports = $state(null); // available MIDI outports
 
 	//TODO: choose port by name rather than index
 
-	/** @type {number|null} */
-	export let port = null;
+	
 	/** @type {MIDIInput|null} */
 	let outport = null;
-	/** @type {Uint8Array} */
-	export let midiMessage;
+	
+	/**
+	 * @typedef {Object} Props
+	 * @property {number|null} [port]
+	 * @property {Uint8Array} midiMessage
+	 */
+
+	/** @type {Props} */
+	let { port = $bindable(null), midiMessage = $bindable() } = $props();
 
 	/**
 	 * set the midi access point and get the midi output port
