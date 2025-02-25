@@ -38,6 +38,7 @@
 
 	/**
 	 * @typedef {Object} Props
+	 * @property {string} [patchName]
 	 * @property {import ('@rnbo/js').Device|undefined} [device]
 	 * @property {import ('@rnbo/js').Parameter[]} [parameters]
 	 * @property {import ('@rnbo/js').MessageInfo[]} [inports]
@@ -51,6 +52,7 @@
 
 	/** @type {Props} */
 	let {
+		patchName,
 		device = $bindable(undefined),
 		parameters = $bindable([]),
 		inports = $bindable([]),
@@ -65,11 +67,12 @@
 	// set up device
 	const deviceSetup = async () => {
 		//import the patcher json dynamically!
-		patcher = await import('../../../../src/RNBO/patch.export.json');
+		patcher = await import(`../../../../src/RNBO/export/${patchName}`);
 
 		if (patcher && context) {
 			//import the dependency json dynamically!
-			const dependencyFile = (await import('../../../../src/RNBO/dependencies.json')).default;
+			const dependencyFile = (await import('../../../../src/RNBO/export/dependencies.json'))
+				.default;
 
 			dependencyFileCorrected = dependencyFile.map((dependency) => {
 				if (BaseDevice.bufferDescriptionHasRemoteURL(dependency)) {
