@@ -66,19 +66,23 @@
 
 	// set up device
 	const deviceSetup = async () => {
+		const modules = import.meta.glob('/src/RNBO/export/*'),
+			exportPath = '/src/RNBO/export/';
+
 		//import the patcher json dynamically!
-		patcher = await import(`../../../../src/RNBO/export/${patchName}`);
+		const patchPath = path.join(exportPath, patchName);
+		patcher = await modules[patchPath]();
 
 		if (patcher && context) {
 			//import the dependency json dynamically!
-			const dependencyFile = (await import('../../../../src/RNBO/export/dependencies.json'))
-				.default;
+			const dependenciesPath = path.join(exportPath, 'dependencies.json');
+			const dependencyFile = (await modules[dependenciesPath]()).default;
 
 			dependencyFileCorrected = dependencyFile.map((dependency) => {
 				if (BaseDevice.bufferDescriptionHasRemoteURL(dependency)) {
 					return dependency;
 				}
-				const newFile = path.join('/src/RNBO/', dependency.file);
+				const newFile = path.join(exportPath, dependency.file);
 				return Object.assign({}, dependency, { file: newFile });
 			});
 
