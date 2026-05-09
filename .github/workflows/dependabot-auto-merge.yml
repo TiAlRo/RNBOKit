@@ -14,8 +14,27 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.user.login == 'dependabot[bot]'
     steps:
-      - name: Enable auto-merge for Dependabot PRs
+      - name: merge
         run: gh pr merge --merge "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          
+      - name: Checkout repo
+        uses: actions/checkout@v6
+        with:
+          ref: main   # wichtig: gemergter Zustand
+
+      - name: Bump version
+        run: pnpm version patch
+
+      - name: Commit version bump
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add package.json pnpm-lock.yaml
+          git commit -m "chore: bump version"
+          git push
+
+      - name: Publish package
+        run: pnpm publish
