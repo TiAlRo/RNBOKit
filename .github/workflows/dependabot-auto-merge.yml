@@ -25,6 +25,14 @@ jobs:
         with:
           ref: main   # wichtig: gemergter Zustand
 
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.15.0
+
+      - name: Enable pnpm
+        run: corepack enable
+
       - name: Bump version
         run: pnpm version patch
 
