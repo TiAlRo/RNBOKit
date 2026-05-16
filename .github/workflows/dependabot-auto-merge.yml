@@ -33,6 +33,9 @@ jobs:
       - name: Enable pnpm
         run: corepack enable
 
+      - name: Install deps
+        run: pnpm i
+
       - name: Bump version
         run: |
           git config user.name "github-actions"
