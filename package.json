@@ -1,6 +1,6 @@
 {
 	"name": "@tialro2/rnbokit",
-	"version": "1.0.13",
+	"version": "1.0.14",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
