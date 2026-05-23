@@ -34,7 +34,7 @@ jobs:
         run: corepack enable
 
       - name: Install deps
-        run: pnpm i
+        run: pnpm i --config.minimum-release-age=0
 
       - name: Bump version
         run: |
