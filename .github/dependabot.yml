@@ -16,9 +16,13 @@ updates:
       dependencies:
         patterns:
           - "*"
+    cooldown:
+      default-days: 1
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       # Check for updates to GitHub Actions every week
       interval: "weekly"
+    cooldown:
+      default-days: 1
