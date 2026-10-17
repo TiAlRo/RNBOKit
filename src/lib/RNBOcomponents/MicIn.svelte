@@ -1,11 +1,10 @@
 <script>
 	//TODO: create a nice way to visualise the average volume!
 	import { onDestroy } from 'svelte';
-	
 
 	/** @type {MediaStream|null} */
 	let stream = $state();
-	
+
 	/**
 	 * @typedef {Object} Props
 	 * @property {AudioContext} context

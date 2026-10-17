@@ -8,10 +8,9 @@
 
 	//TODO: choose port by name rather than index
 
-	
 	/** @type {MIDIInput|null} */
 	let inport = null;
-	
+
 	/**
 	 * @typedef {Object} Props
 	 * @property {number|null} [port]

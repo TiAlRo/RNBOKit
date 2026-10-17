@@ -8,8 +8,6 @@
 
 	import FileDropZone from '../UIcomponents/FileDropZone.svelte';
 
-	
-	
 	/**
 	 * @typedef {Object} Props
 	 * @property {AudioContext} context
@@ -91,11 +89,7 @@
 				animate:flip={{ duration: 200 }}
 			>
 				<p class="RNBOtext">{file.name}</p>
-				<audio
-					src={URL.createObjectURL(file)}
-					bind:this={audioElements[i]}
-					onplay={onPlay}
-					controls
+				<audio src={URL.createObjectURL(file)} bind:this={audioElements[i]} onplay={onPlay} controls
 				></audio>
 				<button
 					type="button"

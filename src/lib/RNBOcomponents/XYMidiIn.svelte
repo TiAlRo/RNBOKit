@@ -1,8 +1,7 @@
 <script>
-	
 	/** @type {Uint8Array} */
 	let currentNote = $state(new Uint8Array([0, 0]));
-	
+
 	/**
 	 * @typedef {Object} Props
 	 * @property {number} [midiChannel]

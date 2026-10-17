@@ -8,7 +8,7 @@ on: pull_request
 permissions:
   contents: write
   pull-requests: write
-  id-token: write  # Required for OIDC
+  id-token: write # Required for OIDC
 
 jobs:
   dependabot:
@@ -20,16 +20,16 @@ jobs:
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          
+
       - name: Checkout repo
         uses: actions/checkout@v7
         with:
-          ref: main   # wichtig: gemergter Zustand
+          ref: main # wichtig: gemergter Zustand
 
       - name: Setup Node
         uses: actions/setup-node@v7
         with:
-          node-version: "24.x"
+          node-version: '24.x'
 
       - name: Enable pnpm
         run: corepack enable

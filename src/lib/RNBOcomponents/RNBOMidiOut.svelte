@@ -1,9 +1,7 @@
 <script>
 	import { MIDIEvent, TimeNow } from '@rnbo/js';
 	// import ExtMidiOut from './ExtMidiOut.svelte';
-	
-	
-	
+
 	/**
 	 * @typedef {Object} Props
 	 * @property {number} [port] - type {number} - the MIDI port index
@@ -30,7 +28,7 @@
 </script>
 
 <div class="RNBOcomponent RNBOsection" {...rest}>
-	{#if children}{@render children({ port, })}{:else}
+	{#if children}{@render children({ port })}{:else}
 		<div class="RNBOtag">in {port}</div>
 
 		<!-- <ExtMidiOut bind:midiMessage /> -->

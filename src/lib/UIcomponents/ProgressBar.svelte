@@ -8,12 +8,7 @@
 	 */
 
 	/** @type {Props} */
-	let {
-		value = void 0,
-		min = 0,
-		max = 100,
-		labelledby = ''
-	} = $props();
+	let { value = void 0, min = 0, max = 100, labelledby = '' } = $props();
 	let fillPercent = $derived(value ? (100 * (value - min)) / (max - min) : 0);
 </script>
 
