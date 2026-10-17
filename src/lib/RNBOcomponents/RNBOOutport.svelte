@@ -1,5 +1,5 @@
 <script>
-	import ProgressBar from '$lib/UIcomponents/ProgressBar.svelte';
+	import ProgressBar from '#lib/UIcomponents/ProgressBar.svelte';
 
 	/** @type {import ('@rnbo/js').MessagePayload } */
 	let value = $state(0);

@@ -3,8 +3,8 @@
 	const { MIDIEvent, TimeNow } = rnbo;
 	import XyMidiIn from './XYMidiIn.svelte';
 	import ExtMidiIn from './ExtMidiIn.svelte';
-	import RadioGroup from '$lib/UIcomponents/RadioGroup.svelte';
-	import RadioItem from '$lib/UIcomponents/RadioItem.svelte';
+	import RadioGroup from '#lib/UIcomponents/RadioGroup.svelte';
+	import RadioItem from '#lib/UIcomponents/RadioItem.svelte';
 
 	/** @type {{default: 'default', xy: 'xy', external: 'external'}} */
 	let modes = { default: 'default', xy: 'xy', external: 'external' };

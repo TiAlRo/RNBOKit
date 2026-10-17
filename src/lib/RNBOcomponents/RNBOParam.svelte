@@ -1,7 +1,7 @@
 <script>
-	import RangeSlider from '$lib/UIcomponents/RangeSlider.svelte';
-	import RadioGroup from '$lib/UIcomponents/RadioGroup.svelte';
-	import RadioItem from '$lib/UIcomponents/RadioItem.svelte';
+	import RangeSlider from '#lib/UIcomponents/RangeSlider.svelte';
+	import RadioGroup from '#lib/UIcomponents/RadioGroup.svelte';
+	import RadioItem from '#lib/UIcomponents/RadioItem.svelte';
 
 	/**
 	 * @typedef {Object} Props

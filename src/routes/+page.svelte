@@ -1,5 +1,5 @@
 <script>
-	import RNBO from '$lib/RNBO.svelte';
+	import RNBO from '#lib/RNBO.svelte';
 </script>
 
 <RNBO />
