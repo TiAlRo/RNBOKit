@@ -1,6 +1,6 @@
 {
 	"name": "@tialro2/rnbokit",
-	"version": "1.0.38",
+	"version": "1.0.39",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -41,7 +41,7 @@
 		"prettier-plugin-svelte": "^4.1.1",
 		"publint": "^0.3.25",
 		"svelte": "^5.57.2",
-		"svelte-check": "^4.7.6",
+		"svelte-check": "^4.7.7",
 		"tslib": "^2.8.1",
 		"vite": "^8.3.4",
 		"vitest": "^5.0.5"
